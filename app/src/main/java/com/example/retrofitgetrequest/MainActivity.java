@@ -111,9 +111,18 @@ public class MainActivity extends AppCompatActivity {
 
     private void createPost(){
 
-        Post post = new Post(23, "new Title", "New Text");
+//        Post post = new Post(23, "new Title", "New Text");
 
-        Call<Post> call = jsonPlaceHolder.createPost(post);
+        //without class
+//        Call<Post> call = jsonPlaceHolder.createPost(23, "New Title", "New Text");
+
+        //using map
+        Map< String, String> fields = new HashMap<>();
+        fields.put("userId", "25");
+        fields.put("title", "New Title");
+
+        Call<Post> call = jsonPlaceHolder.createPost(fields);
+
 
         call.enqueue(new Callback<Post>() {
             @Override
@@ -126,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String content ="";
                 content += "Code: " + response.code() + "\n";
+                content += "ID:" + postResponse.getId() + "\n";
                 content += "User Id:" + postResponse.getUserId() + "\n";
                 content += "Text:" + postResponse.getText() + "\n";
                 content += "Title:" + postResponse.getTitle() + "\n\n";
